@@ -1,9 +1,14 @@
-estar = [["estou", "está"], ["estamos", "estão"]]
-ir = [["vou", "vai"], ["vamos", "vão"]]
+estar = "estou está estamos estão"
+ir = "vou vai vamos vão"
+
+
+def mk_paradigm(s):
+    s1, s3, p1, p3 = s.split()
+    return [[s1, s3], [p1, p3]]
 
 
 def agree(x):
-    pp = {"eu": (0, 0), "nós": (1, 0)}.get(x)
+    pp = {"eu": (0, 0), "nós": (1, 0)}.get(x.lower())
     if not pp:
         if x.split()[0].endswith('s'):
             return (1, 1)
@@ -12,8 +17,9 @@ def agree(x):
 
 
 def conjugate(suj, verbo):
+    paradigm = mk_paradigm(verbo)
     p, n = agree(suj)
-    return verbo[p][n]
+    return paradigm[p][n]
 
 
 def gerund(verbo):
